@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const studentSchema = new Schema({
   firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true },
   linkedinUrl: { type: String, default: "" },
