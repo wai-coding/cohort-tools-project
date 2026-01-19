@@ -5,7 +5,7 @@ const CohortModel = require("../models/Cohort.model");
 
 // COHORT ROUTES
 // Route to create a cohort WORKING!!!
-router.post("/create", (req, res) => {
+router.post("/", (req, res) => {
   CohortModel.create(req.body)
   .then((data) => {
     console.log("cohort added", data);
@@ -18,7 +18,7 @@ router.post("/create", (req, res) => {
 });
 
 // Route to find all the cohorts WORKING!!!
-router.get("/all", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await CohortModel.find();
     console.log("cohorts found", data);

@@ -5,7 +5,7 @@ const StudentModel = require("../models/Student.model");
 
 // STUDENTS ROUTES
 // Route to create a student WORKING!!!
-router.post("/create", (req, res) => {
+router.post("/", (req, res) => {
   StudentModel.create(req.body)
   .then((data) => {
     console.log("student added", data);
@@ -18,9 +18,21 @@ router.post("/create", (req, res) => {
 });
 
 // Route to find all students WORKING!!!
-router.get("/all", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const data = await StudentModel.find().populate("cohort");
+    console.log("students found", data);
+    res.status(200).json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ errorMessage: err });
+  }
+});
+
+// Route to retrieve all of the students for a given cohort WORKING!!!
+router.get("/cohort/:cohortId", async (req, res) => {
+  try {
+    const data = await StudentModel.find({ cohort: req.params.cohortId }).populate("cohort");
     console.log("students found", data);
     res.status(200).json(data);
   } catch (err) {
@@ -37,18 +49,6 @@ router.get("/:studentId", async (req, res) => {
     );
     console.log("student found", foundOneStudent);
     res.status(200).json(foundOneStudent);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ errorMessage: err });
-  }
-});
-
-// Route to retrieve all of the students for a given cohort WORKING!!!
-router.get("/cohort/:cohortId", async (req, res) => {
-  try {
-    const data = await StudentModel.find({ cohort: req.params.cohortId }).populate("cohort");
-    console.log("students found", data);
-    res.status(200).json(data);
   } catch (err) {
     console.log(err);
     res.status(500).json({ errorMessage: err });

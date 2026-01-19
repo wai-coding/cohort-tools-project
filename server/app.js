@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const PORT = 5005;
-
+const cors = require("cors")
 
 
 // STATIC DATA
@@ -28,6 +28,7 @@ app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors(["http://localhost:5173"]));
 
 //Conects the DB
 mongoose
@@ -39,13 +40,13 @@ mongoose
 
 // Handling routes:
 const studentRoutes = require("./routes/student.routes");
-app.use("/students", studentRoutes);
+app.use("/api/students", studentRoutes);
 const cohortRoutes = require("./routes/cohort.routes");
-app.use("/cohorts", cohortRoutes);
+app.use("/api/cohorts", cohortRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 const userRoutes = require("./routes/user.routes");
-app.use("/users", userRoutes);
+app.use("/api/users", userRoutes);
 
 // START SERVER
 app.listen(PORT, () => {

@@ -48,4 +48,5 @@ const cohortSchema = new Schema({
 });
 
 const CohortModel = model("cohort", cohortSchema);
+
 module.exports = CohortModel;
